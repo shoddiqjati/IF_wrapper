@@ -11,16 +11,15 @@ use DateIntercal;
 
 class getdataController extends Controller
 {   
-	private static $main_url = 'https://sandbox.bca.co.id'; // Change When Your Apps is Live
-	private static $client_id = 'd84b8c47-4f7d-4de3-b55c-9ee27045020b'; // Fill With Your Client ID
-	private static $client_secret = '32deb748-b3d8-4df6-9ea5-67f44029706c'; // Fill With Your Client Secret ID
-	private static $api_key = '5f4749f0-8b9f-4148-ad1d-a12b955e7dae'; // Fill With Your API Key
-	private static $api_secret = '24d3e053-27be-4738-9c6f-04e3a8830e4d'; // Fill With Your API Secret Key
+	private static $main_url = 'https://sandbox.bca.co.id'; 
+	private static $client_id = 'd84b8c47-4f7d-4de3-b55c-9ee27045020b'; 
+	private static $client_secret = '32deb748-b3d8-4df6-9ea5-67f44029706c'; 
+	private static $api_key = '5f4749f0-8b9f-4148-ad1d-a12b955e7dae'; 
+	private static $api_secret = '24d3e053-27be-4738-9c6f-04e3a8830e4d'; 
 	private static $access_token = null;
 	private static $signature = null;
 	private static $timestamp = null;
-	private static $corporate_id = 'BCAAPI2016'; // Fill With Your Corporate ID. BCAAPI2016 is Sandbox ID
-	private static $account_number = '0201245680'; // Fill With Your Account Number. 0201245680 is Sandbox Account
+
 	private function getToken(){
 		$path = '/api/oauth/token';
 		$headers = array(
@@ -31,7 +30,7 @@ class getdataController extends Controller
 		);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::$main_url.$path);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Ignore Verify SSL Certificate
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
 		curl_setopt_array($ch, array(
 			CURLOPT_POST => TRUE,
 			CURLOPT_RETURNTRANSFER => TRUE,
@@ -69,7 +68,7 @@ class getdataController extends Controller
 		);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::$main_url.$path);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Ignore Verify SSL Certificate
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
 		curl_setopt_array($ch, array(
 			CURLOPT_POST => TRUE,
 			CURLOPT_RETURNTRANSFER => TRUE,
@@ -83,7 +82,7 @@ class getdataController extends Controller
 	}
 	public function index(){
 		$this->getToken();
-		// Change this path to your desired API Services Path
+
 		$path = '/general/info-bca/atm?Radius=20&Count=3&Latitude=-6.1900718&SearchBy=Distance&Longitude=106.797190';
 		$method = 'GET';
 		$data = array();
@@ -98,12 +97,12 @@ class getdataController extends Controller
 		);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::$main_url.$path);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Ignore Verify SSL Certificate
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
 		curl_setopt_array($ch, array(
 			CURLOPT_RETURNTRANSFER => TRUE,
 			CURLOPT_HTTPHEADER => $headers,
 		));
-		$output = curl_exec($ch); // This is API Response
+		$output = curl_exec($ch); 
 		curl_close($ch);
 		echo $output;
 	}
